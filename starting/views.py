@@ -3,8 +3,19 @@ import datetime
 from django.template import Template, Context
 
 
+class Persona:
+    def __init__(self, nombre, apellido):
+        self.nombre = nombre
+        self.apellido = apellido
+
+
 # Cada función que se crea en views.py es una vista
 def saludo(request):
+    persona = Persona("Stevie", "Nicks")
+    nombre = "Ozzy"
+    apellido = "Osbourne"
+    ahora = datetime.datetime.now()
+
     # Se abre el documento html que se va a utilizar:
     doc_externo = open("C:/ds/django/starting/templates/saludo.html")
 
@@ -13,7 +24,14 @@ def saludo(request):
     doc_externo.close()
 
     # Se crea el contexto:
-    ctx = Context()
+    # Se pueden enviar datos a la plantilla a través de un diccionario:
+    ctx = Context(
+        {
+            "nombre_persona": persona.nombre,
+            "apellido_persona": persona.apellido,
+            "fecha_actual": ahora,
+        }
+    )
 
     # Se renderiza la plantilla y se le pasa el contexto:
     documento = plantilla.render(ctx)
