@@ -1,7 +1,20 @@
 <html>
   <body>
-    <h2>Buenas, {{ nombre_persona }} {{ apellido_persona }}!</h2>
+    <!-- Insertar plantilla dentro de otra plantilla: -->
+    {% include 'barra.html' %}
+
+    <h2 style="color: darkblue">
+      Buenas, {{ nombre_persona }} {{ apellido_persona.upper }}!
+    </h2>
     <h3>La fecha actual es: {{ fecha_actual|date:"d / m / Y" }}</h3>
     <h3>El día es: {{fecha_actual.day}}</h3>
+    <p><strong>Los temas son:</strong></p>
+    <ul>
+      {% if temas %} {% for tema in temas %}
+      <li>{{tema}}</li>
+      {% endfor %} {% else %}
+      <li>No hay temas</li>
+      {% endif %}
+    </ul>
   </body>
 </html>
